@@ -10,12 +10,15 @@ int i, ro;
 for (ro = 0; ro <= 14; ro++)
 {
 for (i = 0; i <= 14; i++)
+{
 if (i >= 10)
 {
-_putchar((i / 10) + '0')
+_putchar((i / 10) + '0');
+_putchar((i % 10) + '0');
 }
-_putchar((1 % 10) + '0');
+else
+_putchar((i % 10) + '0');
 }
-_putchar(''\n);
+_putchar('\n');
 }
 }
