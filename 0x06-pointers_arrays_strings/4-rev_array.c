@@ -1,18 +1,19 @@
 #include "main.h"
 /**
- * *string_toupper - capitalize a string
- * @str: pointer
- * Return: capitalzied string
+ * reverse_array - reverse a int array
+ * @a: pointer
+ * @n: array length
+ * Return: void
 */
 
-char *string_toupper(char *str)
+void reverse_array(int *a, int n)
 {
-	int i;
+	int i = 0, half;
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (half = n / 2; half > 0; half--, i++)
 	{
-		if (str[i] <= 'z' && str[i] >= 'a')
-			str[i] -= 32;
+		a[n - i - 1] += a[i];
+		a[i] = a[n - i - 1] - a[i];
+		a[n - i - 1] = a[n - i - 1] - a[i];
 	}
-	return (str);
 }
