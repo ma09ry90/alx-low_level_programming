@@ -13,18 +13,18 @@ hash_table_t *hash_table_create(unsigned long int size)
 	if (size == 0)
 		return (NULL);
 
-	hash_table = malloc(sizeof(hash_table_t));
+	table = calloc(1,sizeof(hash_table_t));
 
-	if (hash_table == NULL)
+	if (table == NULL)
 		return (NULL);
 
-	hash_table->size = size;
-	hash_table->array = calloc(size, sizeof(hash_node_t *));
-	if (hash_table->array == NULL)
+	table->size = size;
+	table->array = calloc(size, sizeof(hash_node_t *));
+	if (table->array == NULL)
 	{
-		free(hash_table);
+		free(table);
 		return (NULL);
 	}
-	return (hash_table);
+	return (table);
 
 }
