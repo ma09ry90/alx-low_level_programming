@@ -1,47 +1,49 @@
 #include "search_algos.h"
 
 /**
- * jump_list - jump searches on singly linked list
- * @list: pointer to head node
+ * _advanced_binary - performs advanced binary search
+ * @array: the integer array
  * @size: its size
  * @value: value to search for
  *
- * Return: the node found or NULL
+ * Return: the index found or -1
  */
-listint_t *jump_list(listint_t *list, size_t size, int value)
+int *_advanced_binary(int *array, size_t size, int value)
 {
-	size_t i = 0, j = sqrt(size), k = 0, last_j = 0;
-	listint_t *last = list;
+	size_t i = 0;
 
-	if (!list)
+	if (!size || !array)
 		return (NULL);
+	for (printf("Searching in array: "); i < size; i++)
+		printf("%d%s", array[i], i + 1 == size ? "\n" : ", ");
 
-	while (list->n < value)
+	i = (size - 1) / 2;
+	if (array[i] == value)
 	{
-		for (last_j = i, last = list, k = 0; list->next && k < j; k++)
-		{
-			list = list->next;
-			i++;
-		}
-		printf("Value checked at index [%lu] = [%d]\n", i, list->n);
-		if (!list->next)
-			break;
+		if (i)
+			return (_advanced_binary(array, i + 1, value));
+		return (array + i);
 	}
-
-	if (!list->next)
-		j = last_j;
+	else if (array[i] > value)
+		return (_advanced_binary(array, i + 1, value));
 	else
-		j = i >= j ? i - j : 0;
-	printf("Value found between indexes [%lu] and [%lu]\n", j, i);
-	i = i >= size ? size - 1 : i;
-	list = last;
-	while (list)
-	{
-		printf("Value checked at index [%lu] = [%d]\n", j, list->n);
-		if (list->n == value)
-			return (list);
-		j++;
-		list = list->next;
-	}
-	return (NULL);
+		return (_advanced_binary(array + i + 1, size - i - 1, value));
+}
+
+/**
+ * advanced_binary - performs advanced binary search
+ * @array: the integer array
+ * @size: its size
+ * @value: value to search for
+ *
+ * Return: the index found or -1
+ */
+int advanced_binary(int *array, size_t size, int value)
+{
+	int *a = _advanced_binary(array, size, value);
+
+	if (!a)
+		return (-1);
+	else
+		return (a - array);
 }
